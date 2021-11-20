@@ -1,0 +1,32 @@
+Input: integer pos between 0 and N-2, game array of length N
+Output:boolean; true if game is solveable and false if not solveable
+
+Algorithm hitZeroStack(pos, game):
+	create integer List visited
+	create integer Stack stack
+	create boolean started <- false
+
+	while stack is not empty or started = false
+		if !started then started <- true
+
+		if stack is empty then push pos
+
+		if stack contains N-1 then return true
+
+		if visited not empty and visited contains stack.peek()
+			pop stack and continue to next loop iteration
+		else
+			add stack.peek() to visited
+
+		if stack is empty then 
+			return false
+		else
+			pos <- stack.peek()
+
+		if pos + game[pos] < game.length then
+			push (pos + game[pos]) to stack
+
+		if pos - game[pos] > 0 then
+			push (pos - game[pos]) to stack
+
+	return false

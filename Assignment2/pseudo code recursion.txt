@@ -1,0 +1,19 @@
+Input: integer pos between 0 and N-2, game array of length N, integer list of visited positions 
+Output:boolean; true if game is solveable and false if not solveable
+
+Algorithm hitZeroRecursiveHelper(pos, game, visited):
+	if pos = game.length - 1 then 
+		return true
+
+	if visited not empty and visited contains pos then
+		return false
+	else
+		add pos to visited
+
+	if pos + game[pos] < game.length then
+		right <- (pos + game[pos])
+
+	if pos - game[pos] > 0 then
+		left <- (pos - game[pos])
+
+	return hitZeroRecursiveHelper(left, game, visited) || hitZeroRecursiveHelper(right, game, visited)

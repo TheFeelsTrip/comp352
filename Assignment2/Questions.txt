@@ -1,0 +1,35 @@
+a) Briefly explain the time and space complexity for both versions of your game.
+
+	For the recursive algorithm, we have a time complexity of O(n) and a space complexity of O(n) as well. 
+	This is due to the type of recursion used and one of the base cases which prevents us from revisiting a position that has already been visited previously.
+	In other words, this means that recursive calls are only made on the first visit to a position, thus meaning that at worst we have visited 
+	the entire array of length n and then end up with a list of visited position of length n.
+
+	For the stack algorithm, the time complexity and space complexity are both O(n). This is the case because we are looping until we reach was it at most 
+	the length of the array. For the space, it is (n) because we have the list of visited positions which cant surpase the length of the game array and the stack of next 
+	positions to visit also cannot surpass the length of the game array
+
+b) For the first version of your solution, describe the type of recursion used in your 
+implementation. Does the particular type of recursion have an impact on the time and memory 
+complexity? Justify your answer.
+
+	The algorithm uses multiple recursion to solve the game because it either makes either 0, 1 or 2 recursive calls depending on where we are located in the array.
+	This type of recursion does have an effect on time and memory complexity because any recursive call that bring us back to a previously visited 
+	position lands in one of the base cases does not make another recursive call and simply returns false.
+
+c) For the second part of your solution, justify why you choose that particular data structure (e.g. 
+why you choose a stack and not a queue, etc.)
+
+	I chose a stack because of the nature of how we want to traverse through the positions. We want to essentially traverse through a path and if said path does 
+	not work we then backtrack back to a position where we can take a new path not yet visited. Based on this, it made total sense to chose a stack because
+	it would allow us to constantly push the most recent position where we are and if said path was a dead end we could backtrack by popping from the stack.
+	The queue would not work since dequeing would get rid of the oldest positions which does not help with backtracking.
+
+d) Provide test logs for at least 20 different game configurations. The test cases should sufficiently 
+show the correctness of your solution with various game sizes and input values. 
+
+The tests are provided in the hit-zero folder in the file named "out.txt"
+
+e) If possible, explain how one can detect unsolvable array configurations and whether there 
+exists a way to speed up the execution time. Answering this question is optional and you can 
+earn bonus marks by submitting a good solution.
