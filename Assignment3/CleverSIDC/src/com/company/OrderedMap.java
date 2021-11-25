@@ -15,13 +15,14 @@ public class OrderedMap {
     public String get(int key){
         Entry temp = head;
         //check if key already exists
+        //loop until last entry
         while(temp.hasNext()){
             if(temp.getKey() == key){
                 return temp.getValue();
             }
             temp = temp.getNext();
         }
-        //for the last entry
+        //check the last entry
         if(temp.getKey() == key){
             return temp.getValue();
         }
@@ -40,6 +41,7 @@ public class OrderedMap {
         else {
             Entry temp = head;
             //check if key already exists
+            //loop until last entry
             while(temp.hasNext()){
                 if(temp.getKey() == key){
                     temp.setValue(value);
@@ -47,14 +49,14 @@ public class OrderedMap {
                 }
                 temp = temp.getNext();
             }
-            //for the last entry
+            //check the last entry
             if(temp.getKey() == key){
                 temp.setValue(value);
                 return value;
             }
 
             //key does not exist, make new entry
-            //compare to head
+            //entry goes before head
             Entry e =  new Entry(key, value);
             temp = head;
             if(temp.getKey() > key){
@@ -64,7 +66,7 @@ public class OrderedMap {
                 size++;
                 return null;
             }
-            //middle entries
+            //new entry between head and tail
             while(temp != tail){
                 temp = temp.getNext();
                 if(temp.getKey() > key){
@@ -77,6 +79,7 @@ public class OrderedMap {
                 }
             }
             //compare to tail
+            //entry goes before tail
             if(temp.getKey() > key){
                 e.setNext(temp);
                 e.setPrev(temp.getPrev());
@@ -85,6 +88,7 @@ public class OrderedMap {
                 size++;
                 return null;
             }
+            //entry goes after tail
             else{
                temp.setNext(e);
                e.setPrev(temp);
@@ -97,7 +101,7 @@ public class OrderedMap {
 
     public String remove(int key){
         Entry temp = head;
-        //if removing head
+        //if only 1 entry
         if(size == 1){
             if(temp.getKey() == key){
                 head = null;
@@ -106,7 +110,9 @@ public class OrderedMap {
                 return temp.getValue();
             }
         }
+        //more than 1 entry
         else{
+            //if removing head
             if(temp.getKey() == key){
                 head = temp.getNext();
                 temp.getNext().setPrev(null);
