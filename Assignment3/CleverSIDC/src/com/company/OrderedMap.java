@@ -12,8 +12,12 @@ public class OrderedMap {
         size = 0;
     }
 
-    public String get(int key){
+    public String getValue(String key){
         Entry temp = head;
+
+        if(isEmpty())
+            return null;
+
         //check if key already exists
         //loop until last entry
         while(temp.hasNext()){
@@ -30,7 +34,29 @@ public class OrderedMap {
         return null;
     }
 
-    public String put(int key, String value){
+    public Entry getEntry(String key){
+        Entry temp = head;
+
+        if(isEmpty())
+            return null;
+
+        //check if key already exists
+        //loop until last entry
+        while(temp.hasNext()){
+            if(temp.getKey() == key){
+                return temp;
+            }
+            temp = temp.getNext();
+        }
+        //check the last entry
+        if(temp.getKey() == key){
+            return temp;
+        }
+
+        return null;
+    }
+
+    public String put(String key, String value){
         if(isEmpty()){
             Entry e =  new Entry(key, value);
             head = e;
@@ -59,7 +85,7 @@ public class OrderedMap {
             //entry goes before head
             Entry e =  new Entry(key, value);
             temp = head;
-            if(temp.getKey() > key){
+            if(Integer.parseInt(temp.getKey()) > Integer.parseInt(key)){
                 e.setNext(temp);
                 temp.setPrev(e);
                 head = e;
@@ -69,7 +95,7 @@ public class OrderedMap {
             //new entry between head and tail
             while(temp != tail){
                 temp = temp.getNext();
-                if(temp.getKey() > key){
+                if(Integer.parseInt(temp.getKey()) > Integer.parseInt(key)){
                     e.setNext(temp);
                     e.setPrev(temp.getPrev());
                     temp.getPrev().setNext(e);
@@ -80,7 +106,7 @@ public class OrderedMap {
             }
             //compare to tail
             //entry goes before tail
-            if(temp.getKey() > key){
+            if(Integer.parseInt(temp.getKey()) > Integer.parseInt(key)){
                 e.setNext(temp);
                 e.setPrev(temp.getPrev());
                 temp.getPrev().setNext(e);
@@ -99,8 +125,12 @@ public class OrderedMap {
         }
     }
 
-    public String remove(int key){
+    public String remove(String key){
         Entry temp = head;
+
+        if(isEmpty())
+            return null;
+
         //if only 1 entry
         if(size == 1){
             if(temp.getKey() == key){
@@ -140,6 +170,51 @@ public class OrderedMap {
                 return temp.getValue();
             }
         }
+        return null;
+    }
+
+    public Entry floorEntry(String key){
+        Entry temp = head;
+
+        if(isEmpty())
+            return null;
+
+        Entry retVal = null;
+        //check if key already exists
+        //loop until last entry
+        while(temp.hasNext()){
+            if(Integer.parseInt(temp.getKey()) < Integer.parseInt(key)){
+                retVal = temp;
+            }
+            temp = temp.getNext();
+        }
+        //check the last entry
+        if(Integer.parseInt(temp.getKey()) < Integer.parseInt(key)){
+            retVal = temp;
+        }
+
+        return retVal;
+    }
+
+    public Entry ceilingEntry(String key){
+        Entry temp = head;
+
+        if(isEmpty())
+            return null;
+
+        //check if key already exists
+        //loop until last entry
+        while(temp.hasNext()){
+            if(Integer.parseInt(temp.getKey()) > Integer.parseInt(key)){
+                return temp;
+            }
+            temp = temp.getNext();
+        }
+        //check the last entry
+        if(Integer.parseInt(temp.getKey()) > Integer.parseInt(key)){
+            return temp;
+        }
+
         return null;
     }
 

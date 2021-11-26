@@ -2,34 +2,34 @@ package com.company;
 
 public class Entry {
 
-    private int key;
+    private String key;
     private String value;
     private Entry next;
     private Entry prev;
 
     public Entry() {
-        key = -1;
+        key = null;
         value = null;
         next = null;
         prev = null;
     }
-    public Entry(int k, String v) {
+    public Entry(String k, String v) {
         key = k;
         value = v;
         next = null;
         prev = null;
     }
-    public Entry(int k, String v, Entry n, Entry p) {
+    public Entry(String k, String v, Entry n, Entry p) {
         key = k;
         value = v;
         next = n;
         prev = p;
     }
 
-    public int getKey() {
+    public String getKey() {
         return key;
     }
-    public void setKey(int k) {
+    public void setKey(String k) {
         key = k;
     }
 

@@ -1,13 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="039929ca-b0ce-4096-bd36-3c6a40d35604" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/CleverSIDC/com/company/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/CleverSIDC/com/company/Main.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/CleverSIDC/com/company/OrderedMap.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/CleverSIDC/com/company/OrderedMap.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/company/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/company/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/company/OrderedMap.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/company/OrderedMap.java" afterDir="false" />
-    </list>
+    <list default="true" id="039929ca-b0ce-4096-bd36-3c6a40d35604" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -22,6 +16,14 @@
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../.." />
+  </component>
+  <component name="GitSEFilterConfiguration">
+    <file-type-list>
+      <filtered-out-file-type name="LOCAL_BRANCH" />
+      <filtered-out-file-type name="REMOTE_BRANCH" />
+      <filtered-out-file-type name="TAG" />
+      <filtered-out-file-type name="COMMIT_BY_MESSAGE" />
+    </file-type-list>
   </component>
   <component name="ProjectId" id="21AIwEI19p5Rb5jAsfOSMw6FGSB" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
@@ -121,15 +123,17 @@
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/com/company/OrderedMap.java</url>
-          <line>15</line>
-          <option name="timeStamp" value="7" />
+          <url>file://$PROJECT_DIR$/src/com/company/HashMap.java</url>
+          <line>37</line>
+          <option name="timeStamp" value="27" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
     <watches-manager>
       <configuration name="Application">
-        <watch expression="head" />
+        <watch expression="Integer.parseInt(buckets[i].ceilingEntry(key).getKey())" />
+        <watch expression="Integer.parseInt(temp.getKey())" />
+        <watch expression="Integer.parseInt(buckets[i].floorEntry(key).getKey())" />
       </configuration>
     </watches-manager>
   </component>
