@@ -25,13 +25,23 @@ public class HashMap{
     }
 
     public String getValue(String key){
-        String temp = buckets[hash(Integer.parseInt(key))].getValue(key);
+        String temp = buckets[hash(Integer.parseInt(key))].get(key);
         return temp;
     }
 
     public Entry getEntry(String key){
         Entry temp = buckets[hash(Integer.parseInt(key))].getEntry(key);
         return temp;
+    }
+
+    public Sequence entrySet(){
+        Sequence s = new Sequence();
+        Entry temp = ceilingEntry("-1");
+        for(int i = 0; i < size-1; i++){
+            s.add(temp);
+            temp = ceilingEntry(temp.getKey());
+        }
+        return s;
     }
 
     public Entry floorEntry(String key){

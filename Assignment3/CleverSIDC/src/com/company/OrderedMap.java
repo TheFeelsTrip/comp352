@@ -3,178 +3,84 @@ package com.company;
 public class OrderedMap {
 
     private int size;
-    private Entry head;
-    private Entry tail;
+    private Sequence s;
 
     public OrderedMap(){
-        head = null;
-        tail = null;
+        s = new Sequence();
         size = 0;
     }
 
-    public String getValue(String key){
-        Entry temp = head;
-
-        if(isEmpty())
+    /**
+     *
+     * @param key The key for which we want to get the value
+     * @return The value associated to the key, null if key does not exist
+     */
+    public String get(String key){
+        Entry temp = s.getEntryFromKey(key);
+        if(temp == null){
             return null;
-
-        //check if key already exists
-        //loop until last entry
-        while(temp.hasNext()){
-            if(temp.getKey() == key){
-                return temp.getValue();
-            }
-            temp = temp.getNext();
         }
-        //check the last entry
-        if(temp.getKey() == key){
+        else{
             return temp.getValue();
         }
-
-        return null;
     }
 
     public Entry getEntry(String key){
-        Entry temp = head;
-
-        if(isEmpty())
+        Entry temp = s.getEntryFromKey(key);
+        if(temp == null){
             return null;
-
-        //check if key already exists
-        //loop until last entry
-        while(temp.hasNext()){
-            if(temp.getKey() == key){
-                return temp;
-            }
-            temp = temp.getNext();
         }
-        //check the last entry
-        if(temp.getKey() == key){
+        else{
             return temp;
         }
-
-        return null;
     }
 
     public String put(String key, String value){
+        Entry e = new Entry(key, value);
+
         if(isEmpty()){
-            Entry e =  new Entry(key, value);
-            head = e;
-            tail = e;
-            size++;
+            s.add(e);
             return null;
         }
         else {
-            Entry temp = head;
-            //check if key already exists
-            //loop until last entry
-            while(temp.hasNext()){
-                if(temp.getKey() == key){
-                    temp.setValue(value);
-                    return value;
-                }
-                temp = temp.getNext();
+            Entry temp = s.getEntryFromKey(key);
+            //if key already exists
+            if(temp != null){
+                String retVal = temp.getValue();
+                s.set(temp, e);
+                return retVal;
             }
-            //check the last entry
-            if(temp.getKey() == key){
-                temp.setValue(value);
-                return value;
-            }
-
-            //key does not exist, make new entry
-            //entry goes before head
-            Entry e =  new Entry(key, value);
-            temp = head;
-            if(Integer.parseInt(temp.getKey()) > Integer.parseInt(key)){
-                e.setNext(temp);
-                temp.setPrev(e);
-                head = e;
-                size++;
-                return null;
-            }
-            //new entry between head and tail
-            while(temp != tail){
-                temp = temp.getNext();
-                if(Integer.parseInt(temp.getKey()) > Integer.parseInt(key)){
-                    e.setNext(temp);
-                    e.setPrev(temp.getPrev());
-                    temp.getPrev().setNext(e);
-                    temp.setPrev(e);
-                    size++;
-                    return null;
-                }
-            }
-            //compare to tail
-            //entry goes before tail
-            if(Integer.parseInt(temp.getKey()) > Integer.parseInt(key)){
-                e.setNext(temp);
-                e.setPrev(temp.getPrev());
-                temp.getPrev().setNext(e);
-                temp.setPrev(e);
-                size++;
-                return null;
-            }
-            //entry goes after tail
             else{
-               temp.setNext(e);
-               e.setPrev(temp);
-               tail = e;
-               size++;
-               return null;
+                Entry smallestBigger = ceilingEntry(key);
+                if (smallestBigger == null){
+                    s.addLast(e);
+                }
+                else{
+                    s.addBefore(smallestBigger, e);
+                }
+                return null;
             }
         }
     }
 
     public String remove(String key){
-        Entry temp = head;
-
-        if(isEmpty())
+        Entry temp = s.getEntryFromKey(key);
+        if(temp == null){
             return null;
-
-        //if only 1 entry
-        if(size == 1){
-            if(temp.getKey() == key){
-                head = null;
-                tail = null;
-                size--;
-                return temp.getValue();
-            }
         }
-        //more than 1 entry
         else{
-            //if removing head
-            if(temp.getKey() == key){
-                head = temp.getNext();
-                temp.getNext().setPrev(null);
-                temp.setNext(null);
-                size--;
-                return temp.getValue();
-            }
-            //if removing entry between head and tail
-            temp = temp.getNext();
-            while(temp.hasNext()){
-                if(temp.getKey() == key){
-                    temp.getPrev().setNext(temp.getNext());
-                    temp.getNext().setPrev(temp.getPrev());
-                    size--;
-                    return temp.getValue();
-                }
-                temp = temp.getNext();
-            }
-            //if removing tail
-            if(temp.getKey() == key){
-                tail = temp.getPrev();
-                temp.getPrev().setNext(null);
-                temp.setPrev(null);
-                size--;
-                return temp.getValue();
-            }
+            String retVal = temp.getValue();
+            s.remove(temp);
+            return retVal;
         }
-        return null;
+    }
+
+    public Sequence entrySet(){
+        return s;
     }
 
     public Entry floorEntry(String key){
-        Entry temp = head;
+        Entry temp = s.first();
 
         if(isEmpty())
             return null;
@@ -197,7 +103,7 @@ public class OrderedMap {
     }
 
     public Entry ceilingEntry(String key){
-        Entry temp = head;
+        Entry temp = s.first();
 
         if(isEmpty())
             return null;
@@ -216,6 +122,14 @@ public class OrderedMap {
         }
 
         return null;
+    }
+
+    public Entry firstEntry(){
+        return s.first();
+    }
+
+    public Entry lastEntry(){
+        return s.last();
     }
 
     public int size(){

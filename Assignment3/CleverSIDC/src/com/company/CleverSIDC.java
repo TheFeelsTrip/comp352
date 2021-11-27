@@ -23,8 +23,8 @@ public class CleverSIDC {
     }
 
     //return all keys in CleverSIDC as a sorted sequence
-    public void allKeys(){
-
+    public OrderedMap allKeys(){
+        return null;
     }
 
     //add an entry for the given key and value;

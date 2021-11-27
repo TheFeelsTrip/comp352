@@ -124,17 +124,15 @@
       <breakpoints>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/com/company/HashMap.java</url>
-          <line>37</line>
+          <line>47</line>
           <option name="timeStamp" value="27" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/com/company/Main.java</url>
+          <line>20</line>
+          <option name="timeStamp" value="34" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
-    <watches-manager>
-      <configuration name="Application">
-        <watch expression="Integer.parseInt(buckets[i].ceilingEntry(key).getKey())" />
-        <watch expression="Integer.parseInt(temp.getKey())" />
-        <watch expression="Integer.parseInt(buckets[i].floorEntry(key).getKey())" />
-      </configuration>
-    </watches-manager>
   </component>
 </project>
