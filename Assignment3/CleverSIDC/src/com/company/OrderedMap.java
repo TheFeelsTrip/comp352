@@ -16,13 +16,7 @@ public class OrderedMap {
      * @return The value associated to the key, null if key does not exist
      */
     public String get(String key){
-        Entry temp = s.getEntryFromKey(key);
-        if(temp == null){
-            return null;
-        }
-        else{
-            return temp.getValue();
-        }
+        return getEntry(key).getValue();
     }
 
     public Entry getEntry(String key){
@@ -40,6 +34,7 @@ public class OrderedMap {
 
         if(isEmpty()){
             s.add(e);
+            size++;
             return null;
         }
         else {
@@ -50,6 +45,7 @@ public class OrderedMap {
                 s.set(temp, e);
                 return retVal;
             }
+            //key does not already exist
             else{
                 Entry smallestBigger = ceilingEntry(key);
                 if (smallestBigger == null){
@@ -58,6 +54,7 @@ public class OrderedMap {
                 else{
                     s.addBefore(smallestBigger, e);
                 }
+                size++;
                 return null;
             }
         }
@@ -71,6 +68,7 @@ public class OrderedMap {
         else{
             String retVal = temp.getValue();
             s.remove(temp);
+            size--;
             return retVal;
         }
     }

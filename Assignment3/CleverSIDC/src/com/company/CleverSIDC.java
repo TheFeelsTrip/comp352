@@ -3,14 +3,33 @@ package com.company;
 public class CleverSIDC {
     //implement with hash maps with each bucked pointing to an ordered map
 
-    private int threshold;
-    private HashMap hashMapOfOrderedMaps = new HashMap();
+    private HashMap hashMapOfOrderedMaps;
+    //a list of available prime numbers used to set the number of buckets for the hashmap
+    //they were calculated finding the biggest prime number < (2^n)*0.75 where n>= 6 and n<= 19
+    //the n values were selected because 2^6 is the biggest power of 2 less than 100 and 2^19 is the smallest power of 2 greater than 500000
+    private int[] nbBucketOptions = {47, 89, 191, 383, 761, 1531, 3067, 6143, 12281, 24571, 49139, 98299, 196597, 393209};
+
+    public CleverSIDC(){
+
+    }
+
+    public CleverSIDC(int s){
+        SetSIDCThreshold(s);
+    }
 
     //where 100 ≤ Size ≤ ~500,000 is an integer number that defines
     //the size of the list. This size is very important as it will determine what data types or data
     //structures will be used (i.e. a Tree, Hash Table, AVL tree, binary tree, sequence, etc.)
     public void SetSIDCThreshold(int size){
+        int i;
+        for(i = 0; i < nbBucketOptions.length - 1; i++){
+            if(nbBucketOptions[i] > size){
+                hashMapOfOrderedMaps = new HashMap(nbBucketOptions[i-1]);
+                return;
+            }
+        }
 
+        hashMapOfOrderedMaps = new HashMap(nbBucketOptions[i]);
     }
 
     //randomly generates new non-existing key of 8 digits
@@ -23,8 +42,8 @@ public class CleverSIDC {
     }
 
     //return all keys in CleverSIDC as a sorted sequence
-    public OrderedMap allKeys(){
-        return null;
+    public Sequence allKeys(){
+        return hashMapOfOrderedMaps.entrySet();
     }
 
     //add an entry for the given key and value;
@@ -64,8 +83,24 @@ public class CleverSIDC {
 
     //returns the number of keys that are within the specified range of
     //the two keys key1 and key2
-    public int rangeKey(int key1, int key2){
-        return 0;
+    public int rangeKey(String key1, String key2){
+        Sequence s = allKeys();
+        Entry temp = s.first();
+        int counter = 0;
+
+        for(int i = 0; i < s.size(); i++){
+            if(Integer.parseInt(temp.getKey()) >= Integer.parseInt(key1) && Integer.parseInt(temp.getKey()) <= Integer.parseInt(key2))
+                counter++;
+
+            if(Integer.parseInt(temp.getKey()) > Integer.parseInt(key2)){
+                return counter;
+            }
+
+            if(temp.hasNext())
+                temp = temp.getNext();
+        }
+
+        return counter;
     }
 
 }
