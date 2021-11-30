@@ -1,13 +1,18 @@
 package com.company;
 
+import java.util.Arrays;
+
 public class CleverSIDC {
     //implement with hash maps with each bucked pointing to an ordered map
-
     private HashMap hashMapOfOrderedMaps;
+
     //a list of available prime numbers used to set the number of buckets for the hashmap
     //they were calculated finding the biggest prime number < (2^n)*0.75 where n>= 6 and n<= 19
     //the n values were selected because 2^6 is the biggest power of 2 less than 100 and 2^19 is the smallest power of 2 greater than 500000
     private int[] nbBucketOptions = {47, 89, 191, 383, 761, 1531, 3067, 6143, 12281, 24571, 49139, 98299, 196597, 393209};
+
+    private int size;
+    private int threshold;
 
     public CleverSIDC(){
 
@@ -21,6 +26,7 @@ public class CleverSIDC {
     //the size of the list. This size is very important as it will determine what data types or data
     //structures will be used (i.e. a Tree, Hash Table, AVL tree, binary tree, sequence, etc.)
     public void SetSIDCThreshold(int size){
+        threshold = size;
         int i;
         for(i = 0; i < nbBucketOptions.length - 1; i++){
             if(nbBucketOptions[i] > size){
@@ -43,12 +49,39 @@ public class CleverSIDC {
 
     //return all keys in CleverSIDC as a sorted sequence
     public Sequence allKeys(){
-        return hashMapOfOrderedMaps.entrySet();
+        Sequence s = hashMapOfOrderedMaps.entrySet();
+        Entry arr[] = new Entry[s.size()];
+        Entry temp = s.first();
+
+        int i = 0;
+        while(temp.hasNext()){
+            arr[i] = temp;
+            i++;
+            temp = temp.getNext();
+        }
+        arr[i] = temp;
+
+        //sort all the entries
+        Arrays.sort(arr);
+
+        s = new Sequence();
+
+        for(int j = 0; j < arr.length; j++){
+            s.add(arr[j]);
+        }
+
+        return s;
     }
 
     //add an entry for the given key and value;
     public String add(String key, String value){
-        return hashMapOfOrderedMaps.put(key,value);
+        if(size == threshold)
+            return null;
+
+        String temp = hashMapOfOrderedMaps.put(key,value);
+        if(temp == null)
+            size++;
+        return temp;
     }
 
     //remove the entry for the given key;
@@ -101,6 +134,10 @@ public class CleverSIDC {
         }
 
         return counter;
+    }
+
+    public int size(){
+        return this.size;
     }
 
 }

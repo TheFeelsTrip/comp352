@@ -10,15 +10,14 @@ public class OrderedMap {
         size = 0;
     }
 
-    /**
-     *
-     * @param key The key for which we want to get the value
-     * @return The value associated to the key, null if key does not exist
-     */
+    //returns the value associated to a key
+    //returns null if nothing found
     public String get(String key){
         return getEntry(key).getValue();
     }
 
+    //returns a pointer to an entry based on a key
+    //returns null if nothing found
     public Entry getEntry(String key){
         Entry temp = s.getEntryFromKey(key);
         if(temp == null){
@@ -29,6 +28,9 @@ public class OrderedMap {
         }
     }
 
+    //put a new entry into the ordered map
+    //if key already exists, replace the value of the existing entry
+    //otherwise, make new entry, place it before the first key bigger than it and return the new key
     public String put(String key, String value){
         Entry e = new Entry(key, value);
 
@@ -60,6 +62,9 @@ public class OrderedMap {
         }
     }
 
+    //remove an entry from the ordered map based on a key
+    //return the key if the entry was successfully removed
+    //otherwise return null
     public String remove(String key){
         Entry temp = s.getEntryFromKey(key);
         if(temp == null){
@@ -73,10 +78,13 @@ public class OrderedMap {
         }
     }
 
+    //return the sequence of all the entries
     public Sequence entrySet(){
         return s;
     }
 
+    //finds the entry with the biggest key smaller than the key sent into the function
+    //returns null if not found
     public Entry floorEntry(String key){
         Entry temp = s.first();
 
@@ -84,7 +92,7 @@ public class OrderedMap {
             return null;
 
         Entry retVal = null;
-        //check if key already exists
+
         //loop until last entry
         while(temp.hasNext()){
             if(Integer.parseInt(temp.getKey()) < Integer.parseInt(key)){
@@ -100,13 +108,14 @@ public class OrderedMap {
         return retVal;
     }
 
+    //finds the entry with the smallest key bigger than the key sent into the function
+    //returns null if not found
     public Entry ceilingEntry(String key){
         Entry temp = s.first();
 
         if(isEmpty())
             return null;
 
-        //check if key already exists
         //loop until last entry
         while(temp.hasNext()){
             if(Integer.parseInt(temp.getKey()) > Integer.parseInt(key)){
