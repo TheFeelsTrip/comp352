@@ -1,0 +1,74 @@
+Input: none
+Output: all keys in CleverSIDC as a sorted sequence
+Algorithm allKeys()
+	Sequence s <- HashMap.entrySet()
+	arr[] with size of s
+	temp <- first entry from s
+	
+	i <- 0
+	while temp has a next
+		arr[i] <- temp
+		i <- i + 1
+		temp <- the next of temp
+		
+	arr[i] <- temp
+
+	sort arr
+		
+	s <- new Sequence
+	
+	for int j <- 0; j < length of arr; j <- j + 1
+        add arr[j] to s
+        
+    return s;
+
+
+Input: a min (key1) and a max (key2) to check between
+Output: the amount of keys between the min and max inclusively
+Algorithm allKeys(key1, key2)
+
+	Sequence s <- allKeys()
+    temp <- first entry from s
+    counter <- 0
+
+    for int i <- 1 0; i < size of s; i <- i + 1
+		if key of temp >= key1 and key of temp <= key2 then
+            counter <- counter + 1
+
+        if key of temp > key2 then
+            return counter
+
+        if temp has a next then
+            temp <- the next of temp
+			
+    return counter;
+
+	
+Input: a key and a value for a student to enter into the CleverSIDC
+Output: returns null if no new student ID added, otherwise returns the value associated to the newly added key
+Algorithm add(key, value)
+	if size of CleverSIDC is equal to threshold then
+		return null
+		
+	val <- return value of HashMap.add()
+	
+	if val = null then
+		size <- size + 1
+		
+	return val
+
+	
+Input: the threshold for the CleverSIDC instance (size)
+Output: none
+Algorithm SetSIDCThreshold(size)
+	threshold <- size
+	int i
+	
+	for i <- 1 0; i < length of array containing all options for number of buckets in hash map (nbBucketOptions); i <- i + 1
+		if nbBucketOptions[i] > size
+            instantiate the hash map used by CleverSIDC with nbBucketOptions[i-1] buckets
+            return
+            
+    instantiate the hash map used by CleverSIDC with nbBucketOptions[i] buckets
+
+

@@ -78,10 +78,10 @@ public class CleverSIDC {
         if(size == threshold)
             return null;
 
-        String temp = hashMapOfOrderedMaps.put(key,value);
-        if(temp == null)
+        String val = hashMapOfOrderedMaps.put(key,value);
+        if(val == null)
             size++;
-        return temp;
+        return val;
     }
 
     //remove the entry for the given key;
